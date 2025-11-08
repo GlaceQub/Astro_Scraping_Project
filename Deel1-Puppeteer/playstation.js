@@ -13,7 +13,9 @@ async function scrapePlaystations() {
     return rows.map((row) => ({
       productTitle: row.querySelector('.product-card__title').textContent.trim(),
       price: row.querySelector('.sales-price__current').textContent.trim(),
-      // TODO: Voeg beschikbaarheid toe
+       beschikbaarheid: (
+         row.querySelector('.color--available, .color--unavailable')?.textContent.trim() || ''
+       ),
     }));
   });
 
