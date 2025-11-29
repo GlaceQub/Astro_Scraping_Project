@@ -11,9 +11,9 @@ async function scrapePlaystations() {
 
 	const products = await page.$$eval(".product-card", (rows) => {
 		return rows.map((row) => ({
-			productTitle: row.querySelector(".product-card__title").textContent.trim(),
-			price: row.querySelector(".sales-price__current").textContent.trim(),
-			beschikbaarheid: row.querySelector(".color--available, .color--unavailable")?.textContent.trim(),
+			productTitle: row.querySelector(".product-card__title")?.textContent.trim() || "Geen titel gevonden",
+			price: row.querySelector(".sales-price__current")?.textContent.trim() || "Geen prijs gevonden",
+			beschikbaarheid: row.querySelector(".color--available, .color--unavailable")?.textContent.trim() || "Geen beschikbaarheid gevonden",
 		}))
 	})
 
@@ -23,7 +23,7 @@ async function scrapePlaystations() {
 	})
 
 	console.log(pageTitle)
-	console.log(products)
+	//console.log(products)
 	console.log(filteredProducts)
 
 	await browser.close()
