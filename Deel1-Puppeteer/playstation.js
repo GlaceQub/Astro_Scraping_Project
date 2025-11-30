@@ -1,4 +1,5 @@
 import puppeteer from "puppeteer"
+import { formatPrijs } from "./util.js"
 
 // Scrape Playstations
 async function scrapePlaystations() {
@@ -17,9 +18,13 @@ async function scrapePlaystations() {
 		}))
 	})
 
+	// convert price strings to numbers in Node context using imported formatPrijs
+		for (const p of products) {
+			p.price = p.price ? formatPrijs(p.price) : null
+		}
+
 	const filteredProducts = products.filter((product) => {
-		const priceFloat = parseFloat(product.price.replace(/[^\d,]/g, "").replace(",", "."))
-		return priceFloat > 600
+		return product.price > 600
 	})
 
 	console.log(pageTitle)
