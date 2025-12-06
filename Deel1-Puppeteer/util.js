@@ -1,5 +1,4 @@
 import fs from "fs"
-import { sep } from "path"
 
 function formatPrijs(prijsStr) {
   if (prijsStr == null) return null
