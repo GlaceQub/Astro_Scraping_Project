@@ -1,12 +1,14 @@
 import { scrapePlaystations } from "./playstation.js"
 import { scrapeLaptops } from "./laptop.js"
 import { scrapeOnSaleSteamGames } from "./steam.js"
+import { scrapeBoardgames } from "./boardgames.js"
 import { writeOrMergeJson } from "./util.js"
 
 const ACTIVE_SCRAPES = {
 	playstations: false,
 	laptops: false,
-	steamOnSaleGames: true,
+	steamOnSaleGames: false,
+	boardgames: true
 }
 
 // create JSON with filtered playstation products over 600 euro
@@ -39,4 +41,17 @@ if (ACTIVE_SCRAPES.steamOnSaleGames) {
 	}
 	const filteredOnSaleSteamGames = await scrapeOnSaleSteamGames(steamFilter)
 	writeOrMergeJson("steam_games.json", filteredOnSaleSteamGames)
+}
+
+// Create JSON with filtered boardgames from bol.com
+if (ACTIVE_SCRAPES.boardgames) {
+	const boardgameFilter = {
+		players: [4, null],
+		minAge: 12,
+		minReviews: 100,
+		price: [20, 50],
+		language: ["Nederlands"]
+	}
+	const filteredBoardgames = await scrapeBoardgames(boardgameFilter)
+	writeOrMergeJson("boardgames.json", filteredBoardgames)
 }
