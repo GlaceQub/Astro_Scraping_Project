@@ -33,7 +33,7 @@ async function scrapeSteamDeals() {
     console.log(games);
 
     // Write the games to a json file
-    fs.writeFileSync('./steam-deals.json', JSON.stringify(games, null, 2));
+    fs.writeFileSync('frontend/src/data/steam-deals.json', JSON.stringify(games, null, 2));
 
     await browser.close();
 }

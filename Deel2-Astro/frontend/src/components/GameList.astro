@@ -1,0 +1,40 @@
+---
+import type { SteamDeal } from "../types/SteamDeal"
+import CheckIcon from "./icons/CheckIcon.astro"
+import CloseIcon from "./icons/CloseIcon.astro"
+
+const steamDeals = Astro.props.steamDeals as SteamDeal[]
+---
+
+<div class="relative overflow-x-auto bg-neutral-primary-soft shadow-xl rounded-base border border-stone-400">
+	<table id="steam-deals-table" class="w-full text-sm text-left rtl:text-right text-body">
+		<thead class="text-sm text-body bg-neutral-secondary-soft border-b rounded-base border-stone-400">
+			<tr>
+				<th scope="col" class="px-6 py-3 w-[70%]">Game</th>
+				<th scope="col" class="px-6 py-3 w-[15%] text-center">Discounted</th>
+				<th scope="col" class="px-6 py-3 w-[15%] text-center">Discount %</th>
+			</tr>
+		</thead>
+		<tbody>
+			{
+				steamDeals.map((deal) => (
+					<tr class="border-b border-stone-300 hover:bg-stone-100/50">
+						<td class="px-6 py-2 font-medium text-gray-900">{deal.title}</td>
+						<td class="px-6 py-2 flex justify-center items-center">{deal.isDiscounted ? <CheckIcon /> : <CloseIcon />}</td>
+						<td class="px-6 py-2 text-center">
+							{deal.discountPercentage !== null ? <span class="font-bold text-gray-900">{deal.discountPercentage}%</span> : <span class="text-xs text-gray-400">N/A</span>}
+						</td>
+					</tr>
+				))
+			}
+		</tbody>
+	</table>
+</div>
+<script is:inline>
+	document.addEventListener("DOMContentLoaded", function () {
+		const table = document.getElementById("steam-deals-table")
+		if (table && window.DataTable) {
+			new window.DataTable(table)
+		}
+	})
+</script>
