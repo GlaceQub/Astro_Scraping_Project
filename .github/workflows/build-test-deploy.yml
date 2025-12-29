@@ -1,7 +1,7 @@
 name: Build, Test & Deploy
 defaults:
   run:
-    working-directory: frontend
+    working-directory: Deel2-Astro/frontend
 on:
   push:
     branches: [main]
