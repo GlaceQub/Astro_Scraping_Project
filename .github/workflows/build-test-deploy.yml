@@ -21,6 +21,12 @@ jobs:
         run: npm install -g pnpm && pnpm install
       - name: Build frontend
         run: pnpm run build
+      - name: List files for debug
+        run: |
+          pwd
+          ls -l
+          ls -l dist || true
+          ls -l playwright-report || true
       - name: Upload frontend artifact
         uses: actions/upload-artifact@v4
         with:
@@ -29,7 +35,7 @@ jobs:
       - name: Install Playwright Browsers
         run: pnpm exec playwright install --with-deps
       - name: Run Playwright tests
-        run: pnpm exec playwright test
+        run: pnpm exec playwright test --reporter=html
       - name: Upload Playwright report
         uses: actions/upload-artifact@v4
         with:
