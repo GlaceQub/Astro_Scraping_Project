@@ -1,0 +1,34 @@
+---
+import Layout from "../layouts/Layout.astro"
+import background from "../assets/background.svg"
+import "flowbite"
+
+// Json Data
+import steamDeals from "../data/steam-deals.json"
+
+// Custom components
+import SearchInput from "../components/SearchInput.astro"
+import DiscountRangeSlider from "../components/DiscountRangeSlider.astro"
+import GameList from "../components/GameList.astro"
+---
+
+<Layout>
+	<main class="bg-stone-100 min-h-screen">
+		<div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+			<div class="max-w-screen-lg sm:text-lg flex gap-4 flex-col">
+				<h2 class="text-4xl font-bold">Steam deals</h2>
+				<div class="flex flex-col lg:flex-row gap-4">
+					<div class="flex-1">
+						<SearchInput />
+					</div>
+					<div class="flex-1">
+						<DiscountRangeSlider />
+					</div>
+				</div>
+				<GameList steamDeals={steamDeals} />
+			</div>
+		</div>
+	</main>
+</Layout>
+
+<script is:inline src="/scripts/dealsFiltering.js"/>
