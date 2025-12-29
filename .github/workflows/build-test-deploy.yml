@@ -43,13 +43,19 @@ jobs:
           path: Deel2-Astro/frontend/playwright-report
   deploy:
     name: "Deploy to Combell"
+    needs: build-and-test
     runs-on: ubuntu-latest
     steps:
       - name: Download frontend artifact
-        uses: actions/checkout@v4
+        uses: actions/download-artifact@v4
+        with:
+          name: frontend-dist
+          path: frontend-dist
       - name: Synchronize files to Combell
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: frontend-dist
+          server-dir: /astro-build
