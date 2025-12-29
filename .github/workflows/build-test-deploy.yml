@@ -41,3 +41,15 @@ jobs:
         with:
           name: playwright-report
           path: Deel2-Astro/frontend/playwright-report
+  deploy:
+    name: "Deploy to Combell"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download frontend artifact
+        uses: actions/checkout@v4
+      - name: Synchronize files to Combell
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}

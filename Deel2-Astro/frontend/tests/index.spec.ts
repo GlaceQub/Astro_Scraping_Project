@@ -2,13 +2,13 @@ import { test, expect } from '@playwright/test';
 
 // Checking if the page is loaded correctly
 test('on correct page', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/astro-build');
   await expect(page).toHaveTitle(/Steam deals/);
 });
 
 // Checking if frontend contains a list og games
 test('contains list of games', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/astro-build');
 
   //Checks if table is visible
   const table = page.locator('#steam-deals-table');
@@ -21,7 +21,7 @@ test('contains list of games', async ({ page }) => {
 
 // Checking if frontend contains a search input field
 test('contains search input field', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/astro-build');
 
   // Check if the search input field is present
   const searchInput = page.locator('#search-input[type="text"]');
@@ -32,7 +32,7 @@ test('contains search input field', async ({ page }) => {
 test('slider filtering works', async ({ page }) => {
   const sliderFilter = 50;
 
-  await page.goto('/');
+  await page.goto('/astro-build');
 
   // Locate the slider and set its value
   const slider = page.locator('#discount-range-slider[type="range"]');
@@ -56,7 +56,7 @@ test('search and slider filtering works', async ({ page }) => {
   const inputFilter = 'total';
   const sliderFilter = 20;
   
-  await page.goto('/');
+  await page.goto('/astro-build');
 
   // Locate the search input field and enter a search term
   const searchInput = page.locator('#search-input[type="text"]');
