@@ -19,7 +19,7 @@ jobs:
           version: 9.15.0
       - uses: actions/setup-node@v4
         with:
-          node-version: lts/*
+          node-version: 24.15.0
           cache: pnpm
           cache-dependency-path: Deel2-Astro/frontend/pnpm-lock.yaml
       - name: Install dependencies
