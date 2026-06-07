@@ -37,10 +37,21 @@ jobs:
         with:
           name: frontend-dist
           path: Deel2-Astro/frontend/dist
-      - name: Install Playwright Browsers
-        run: pnpm exec playwright install --with-deps
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('Deel2-Astro/frontend/pnpm-lock.yaml') }}
+      - name: Install Playwright system dependencies
+        run: pnpm exec playwright install-deps
+      - name: Install Chromium browser
+        run: pnpm exec playwright install chromium
+      - name: Install Firefox browser
+        run: pnpm exec playwright install firefox
+      - name: Install WebKit browser
+        run: pnpm exec playwright install webkit
       - name: Run Playwright tests
-        run: pnpm exec playwright test --reporter=html
+        run: pnpm exec playwright test --reporter=line,html
       - name: Upload Playwright report
         uses: actions/upload-artifact@v4
         with:
